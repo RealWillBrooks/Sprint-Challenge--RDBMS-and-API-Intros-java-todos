@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "quoteService")
-public class TodoServiceImpl implements TodoService
+public class TodosServiceImpl implements TodosService
 {
     @Autowired
     private QuoteRepository quoterepos;

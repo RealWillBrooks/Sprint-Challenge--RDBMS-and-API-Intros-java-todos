@@ -6,8 +6,7 @@ import com.lambdaschool.todos.view.CountQuotes;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface TodoService
-
+public interface TodosService
 {
     List<Todo> findAll();
 

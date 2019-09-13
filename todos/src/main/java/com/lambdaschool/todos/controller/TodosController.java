@@ -1,7 +1,7 @@
 package com.lambdaschool.todos.controller;
 
 import com.lambdaschool.todos.model.Todo;
-import com.lambdaschool.todos.service.TodoService;
+import com.lambdaschool.todos.service.TodosService;
 import com.lambdaschool.todos.view.CountQuotes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,24 +21,24 @@ import java.util.List;
 public class TodosController
 {
     @Autowired
-    TodoService todoService;
+    TodosService todosService;
 
     @GetMapping(value = "/todos",
             produces = {"application/json"})
     public ResponseEntity<?> listAllQuotes()
     {
-        List<Todo> allTodos = todoService.findAll();
+        List<Todo> allTodos = todosService.findAll();
         return new ResponseEntity<>(allTodos, HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/todo/{todoId}",
+    @GetMapping(value = "/todos/{todoId}",
             produces = {"application/json"})
     public ResponseEntity<?> getTodoById(
             @PathVariable
                     Long todoId)
     {
-        Todo q = todoService.findTodoById(todoId);
+        Todo q = todosService.findTodoById(todoId);
         return new ResponseEntity<>(q, HttpStatus.OK);
     }
 
@@ -49,7 +49,7 @@ public class TodosController
             @PathVariable
                     String userName)
     {
-        List<Todo> theTodos = todoService.findByUserName(userName);
+        List<Todo> theTodos = todosService.findByUserName(userName);
         return new ResponseEntity<>(theTodos, HttpStatus.OK);
     }
 
@@ -58,18 +58,18 @@ public class TodosController
             produces = {"application/json"})
     public ResponseEntity<?> getQuotesCount()
     {
-        ArrayList<CountQuotes> myList = todoService.getCountQuotes();
+        ArrayList<CountQuotes> myList = todosService.getCountQuotes();
         myList.sort((q1, q2) -> q1.getUsername().compareToIgnoreCase(q2.getUsername()));
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
 
 
-    @PostMapping(value = "/todo")
+    @PostMapping(value = "/todos")
     public ResponseEntity<?> addNewQuote(@Valid
                                          @RequestBody
                                                  Todo newTodo) throws URISyntaxException
     {
-        newTodo = todoService.save(newTodo);
+        newTodo = todosService.save(newTodo);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -79,14 +79,14 @@ public class TodosController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/todo/{todoid}")
+    @PutMapping(value = "/todos/{todoid}")
     public ResponseEntity<?> updateQuote(
             @RequestBody
                     Todo updateTodo,
             @PathVariable
                     long todoid)
     {
-        todoService.update(updateTodo, todoid);
+        todosService.update(updateTodo, todoid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -95,7 +95,7 @@ public class TodosController
             @PathVariable
                     long id)
     {
-        todoService.delete(id);
+        todosService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
