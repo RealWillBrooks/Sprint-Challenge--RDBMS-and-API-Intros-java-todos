@@ -43,9 +43,9 @@ public class SeedData implements CommandLineRunner
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u1 = new User("barnbarn", "ILuvM4th!", users);
-        u1.getTodos().add(new Todo("Finish java-orders-swagger", new Date(), u1));
-        u1.getTodos().add(new Todo("Feed the turtles", new Date(), u1));
-        u1.getTodos().add(new Todo("Complete the sprint challenge", new Date(), u1));
+        u1.getTodos().add(new Todo("Finish java-orders-swagger", false, u1));
+        u1.getTodos().add(new Todo("Feed the turtles", false, u1));
+        u1.getTodos().add(new Todo("Complete the sprint challenge", false, u1));
         userrepos.save(u1);
 
         ArrayList<UserRoles> admins = new ArrayList<>();
