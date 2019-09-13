@@ -1,13 +1,31 @@
+package com.lambdaschool.todos;
+
 // provided by Vivek Vishwanath
+
+import com.lambdaschool.todos.model.Todo;
+import com.lambdaschool.todos.model.Role;
+import com.lambdaschool.todos.model.User;
+import com.lambdaschool.todos.model.UserRoles;
+import com.lambdaschool.todos.repository.QuoteRepository;
+import com.lambdaschool.todos.repository.RoleRepository;
+import com.lambdaschool.todos.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 
 @Transactional
 @Component
-public class SeedData implements CommandLineRunner {
+
+public class SeedData implements CommandLineRunner
+{
+
     RoleRepository rolerepos;
     UserRepository userrepos;
-    ToDoRepository todorepos;
+    QuoteRepository todorepos;
 
-    public SeedData(RoleRepository rolerepos, UserRepository userrepos, ToDoRepository todorepos) {
+    public SeedData(RoleRepository rolerepos, UserRepository userrepos, QuoteRepository todorepos) {
         this.rolerepos = rolerepos;
         this.userrepos = userrepos;
         this.todorepos = todorepos;
@@ -21,6 +39,7 @@ public class SeedData implements CommandLineRunner {
         rolerepos.save(r1);
         rolerepos.save(r2);
 
+
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u1 = new User("barnbarn", "ILuvM4th!", users);
@@ -33,8 +52,8 @@ public class SeedData implements CommandLineRunner {
         admins.add(new UserRoles(new User(), r1));
         admins.add(new UserRoles(new User(), r2));
         User u2 = new User("admin", "password", admins);
-        u2.getTodos().add(new Todo("Walk the dogs", new Date(), u2));
-        u2.getTodos().add(new Todo("provide feedback to my instructor", new Date(), u2));
+        u2.getTodos().add(new Todo("Walk the dogs", false, u2));
+        u2.getTodos().add(new Todo("provide feedback to my instructor", false, u2));
         userrepos.save(u2);
 
         users = new ArrayList<>();
